@@ -84,16 +84,16 @@ public class Main {
                 gridAction.actionPerformed(event);
             }
         });
-        JButton timeButton = new JButton("посмотреть время");
+        JButton timeButton = new JButton("Посмотреть время");
         menuBar.add(timeButton);
         Action timeAction = new AbstractAction("Время") {
             public void actionPerformed(ActionEvent event) {
                 try {
                     String message = "";
-                    message += SbSTime != -1 ? "Step by step: " + SbSTime + " ns\n" : "";
-                    message += BrtTime != -1 ? "Bresehem line: " + BrtTime + " ns\n" : "";
-                    message += DDATime != -1 ? "dda: " + DDATime + " ns\n" : "";
-                    message += BrtCircleTime != -1 ? "Bresehem circle: " + BrtCircleTime + " ns\n" : "";
+                    message += SbSTime != -1 ? "Пошаговый алгоритм: " + SbSTime + " ns\n" : "";
+                    message += BrtTime != -1 ? "Алгоритм Брезенхема для построения отрезков: " + BrtTime + " ns\n" : "";
+                    message += DDATime != -1 ? "ЦДА: " + DDATime + " ns\n" : "";
+                    message += BrtCircleTime != -1 ? "Алгоритм Брезенхема для построения окружностей: " + BrtCircleTime + " ns\n" : "";
 
                     JOptionPane.showMessageDialog(null, message);
                 } catch (Exception ignored) {
@@ -107,7 +107,7 @@ public class Main {
             }
         });
 
-        JButton stepByStepButton = new JButton("StepByStep");
+        JButton stepByStepButton = new JButton("Пошаговый алгоритм");
         menuBar.add(stepByStepButton);
         Action SbSAction = new AbstractAction("Пошаговая") {
             public void actionPerformed(ActionEvent event) {
@@ -135,9 +135,9 @@ public class Main {
             }
         });
 
-        JButton DDAButton = new JButton("DDA");
+        JButton DDAButton = new JButton("ЦДА");
         menuBar.add(DDAButton);
-        Action DDAAction = new AbstractAction("DDA") {
+        Action DDAAction = new AbstractAction("ЦДА") {
             public void actionPerformed(ActionEvent event) {
                 try {
                     int x1 = Integer.parseInt(x1Field.getText());
@@ -161,7 +161,7 @@ public class Main {
                 DDAAction.actionPerformed(event);
             }
         });
-        JButton Brezenhem = new JButton("Brezenhem");
+        JButton Brezenhem = new JButton("Построить отрезок алгоритмом Брезенхема");
         menuBar.add(Brezenhem);
         Action BrAction = new AbstractAction("Брезенхем") {
             public void actionPerformed(ActionEvent event) {
@@ -223,7 +223,7 @@ public class Main {
                 }
             }
         });
-        JButton circle = new JButton("Brezenhem circle");
+        JButton circle = new JButton("Построить окружность алгоритмом Брезенхема");
         menuBar.add(circle);
 
         Action BrCirclAction = new AbstractAction("Брезенхем circle") {
@@ -251,7 +251,7 @@ public class Main {
             }
         });
 
-        JButton cleanButton = new JButton("Clean");
+        JButton cleanButton = new JButton("Очистить");
         menuBar.add(cleanButton);
         Action cleanAction = new AbstractAction("Очистить") {
             public void actionPerformed(ActionEvent event) {
