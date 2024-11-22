@@ -33,30 +33,37 @@ public class Algorithms {
         }
     }
 
-    public static void drawLineBr(Graphics2D g2, int x1, int y1, int x2, int y2, int gridWidth) {
-        int dx = Math.abs(x2 - x1);
-        int dy = Math.abs(y2 - y1);
-        int sx = x1 < x2 ? 1 : -1;
-        int sy = y1 < y2 ? 1 : -1;
-        int err = dx - dy;
+    public static void drawLineBr(Graphics2D g2, int x0, int y0, int x1, int y1, int gridWidth) {
 
-        while (x1 != x2 || y1 != y2) {
-            pixel(g2, x1, y1, gridWidth);
+        int dx = Math.abs(x1 - x0);
+        int dy = Math.abs(y1 - y0);
+        double err = 0;
+        double derr = (dy + 1) / (double) (dx + 1);
+        int y = y0;
+        int diry = (y1 > y0) ? 1 : -1; // Определяем направление по Y
 
-            int err2 = 2 * err;
-
-            if (err2 > -dy) {
-                err -= dy;
-                x1 += sx;
-            }
-
-            if (err2 < dx) {
-                err += dx;
-                y1 += sy;
-            }
+        // Если x0 больше x1, меняем местами начальные и конечные координаты
+        if (x0 > x1) {
+            int temp = x0;
+            x0 = x1;
+            x1 = temp;
+            temp = y0;
+            y0 = y1;
+            y1 = temp; // Также меняем Y
         }
 
-        pixel(g2, x2, y2, gridWidth);
+        // Основной цикл для рисования линии
+        for (int x = x0; x <= x1; x++) {
+            pixel(g2, x, y, gridWidth); // Рисуем текущий пиксель
+            err += derr; // Увеличиваем ошибку
+
+            // Если ошибка превышает 1, увеличиваем Y
+            while (err >= 1.0) {
+                y += diry; // Изменяем Y
+                pixel(g2, x, y, gridWidth); // Рисуем новый пиксель
+                err -= 1.0; // Уменьшаем ошибку
+            }
+        }
     }
 
     public static void ddaAlgorithm(Graphics2D g2, int x0, int y0, int x1, int y1, int gridWidth) {
@@ -73,19 +80,19 @@ public class Algorithms {
             y += yIncrement;
         }
     }
+
     public static void bresenhamCircle(Graphics2D g2, int xc, int yc, int r, int gridWidth) {
         int x = 0;
         int y = r;
         int d = 3 - 2 * r;
         drawCirclePoints(g2, xc, yc, x, y, gridWidth);
 
-        while (y >= x){
+        while (y >= x) {
 
             if (d > 0) {
                 y--;
                 d = d + 4 * (x - y) + 10;
-            }
-            else
+            } else
                 d = d + 4 * x + 6;
 
             x++;
@@ -110,13 +117,21 @@ public class Algorithms {
         boolean steep = Math.abs(y2 - y1) > Math.abs(x2 - x1);
 
         if (steep) {
-            int temp = x1; x1 = y1; y1 = temp;
-            temp = x2; x2 = y2; y2 = temp;
+            int temp = x1;
+            x1 = y1;
+            y1 = temp;
+            temp = x2;
+            x2 = y2;
+            y2 = temp;
         }
 
         if (x1 > x2) {
-            int temp = x1; x1 = x2; x2 = temp;
-            temp = y1; y1 = y2; y2 = temp;
+            int temp = x1;
+            x1 = x2;
+            x2 = temp;
+            temp = y1;
+            y1 = y2;
+            y2 = temp;
         }
 
         int dx = x2 - x1;
