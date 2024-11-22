@@ -49,19 +49,17 @@ public class Algorithms {
             x1 = temp;
             temp = y0;
             y0 = y1;
-            y1 = temp; // Также меняем Y
+            y1 = temp;
         }
 
-        // Основной цикл для рисования линии
         for (int x = x0; x <= x1; x++) {
-            pixel(g2, x, y, gridWidth); // Рисуем текущий пиксель
-            err += derr; // Увеличиваем ошибку
+            pixel(g2, x, y, gridWidth);
+            err += derr;
 
-            // Если ошибка превышает 1, увеличиваем Y
             while (err >= 1.0) {
-                y += diry; // Изменяем Y
-                pixel(g2, x, y, gridWidth); // Рисуем новый пиксель
-                err -= 1.0; // Уменьшаем ошибку
+                y += diry;
+                pixel(g2, x, y, gridWidth);
+                err -= 1.0;
             }
         }
     }
